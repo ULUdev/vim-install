@@ -1,0 +1,3 @@
+call system("mkdir -p" . expand("~/.vim/plugins"))
+call system("cp -f vim-install.vim " . expand("~/.vim/plugins/"))
+echo 'successfully installed vim-installer to ~/.vim/plugins/'
