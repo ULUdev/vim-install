@@ -1,0 +1,43 @@
+*vim-installer.txt*	For Vim version 8.2	Last change: 2021 June 7
+
+A plugin for installing plugins			*vim-install*
+
+1. Install command				|vim-install-cmd|
+2. Creating a .viminstall file			|vim-install-file|
+3. Use cases					|vim-install-use|
+
+==============================================================================
+1. Install command				*vim-install-cmd*
+
+		*:VimInstall*
+:VimInstall	Runs the .viminstall file of the current directory
+
+==============================================================================
+2. Creating a .viminstall file			*vim-install-file*
+
+RULES
+- A .viminstall file should only install a plugins necessary files
+- If needed check the existance of dependencies
+- If needed take user input for variety of plugin installations
+    (e.g. the .viminstall for this project)
+
+SYNTAX
+A .viminstall file is interpreted as a viml (or vimscript) file. Therefore
+valid viml syntax is valid .viminstall syntax. >
+    call system('git clone <url> /tmp/repo')
+<
+An example for a .viminstall file which is just cloning a git repository.
+
+Note it uses the `system()` function which executes something on the host
+	machine. NEVER use sudo in there.
+
+==============================================================================
+3. Use cases					*vim-install-use*
+
+vim-install should be used mostly with |plugin-manager| since it solves the
+problem that plugin-manager doesn't install anything.
+It can also be used for easier deployment of new versions of a plugin.
+
+
+
+ vim:tw=78:ts=8:noet:ft=help:norl:

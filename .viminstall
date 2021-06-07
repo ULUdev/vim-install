@@ -1,4 +1,33 @@
+function! VimInstallNetInstall()
+	call system("curl -s https://gitlab.sokoll.com/moritz/vim-install/-/raw/master/vim-installer.vim > ~/.vim/plugins/vim-installer.vim")
+	call system("curl -s https://gitlab.sokoll.com/moritz/vim-install/-/raw/master/vim-installer.txt > ~/.vim/doc/vim-installer.txt")
+endfunction
+
+function! VimInstallLocalInstall()
+	call system("cp -f vim-installer.vim " . expand("~/.vim/plugins/"))
+	call system("cp -f vim-installer.txt " . expand("~/.vim/doc/"))
+endfunction
+
+echo 'preparing...'
 call system("mkdir -p" . expand("~/.vim/plugins"))
-call system("cp -f vim-installer.vim " . expand("~/.vim/plugins/"))
-echo 'successfully installed vim-installer to ~/.vim/plugins/'
+echo "per default vim-installer pulls down it's files from the internet (net install)."
+let sel = input('use local files instead? [y/N] ')
+
+if len(sel) < 1
+	call VimInstallNetInstall()
+elseif tolower(sel)[0] == 'y'
+	call VimInstallLocalInstall()
+elseif tolower(sel)[0] == 'n'
+	call VimInstallNetInstall()
+else
+	call VimInstallNetInstall()
+endif
+
+helptags ~/.vim/doc
+echo 'successfully installed vim-installer to ~/.vim/plugins/ and help files'
+echo 'cleanup...'
+delfunction VimInstallNetInstall
+delfunction VimInstallLocalInstall
+echo 'done!'
+
 " vim: filetype=vim
